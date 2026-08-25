@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFORME TÉCNICO · Análisis Forense de Red y Geolocalización</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0b1219;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            padding: 2rem 1.5rem;
+            color: #e2e8f0;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: #101a26;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7);
+            padding: 2rem 2.8rem;
+            border: 1px solid #1e2d3d;
+        }
+
+        /* ENCABEZADO */
+        .doc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 2px solid #1e3a5f;
+            padding-bottom: 0.6rem;
+            margin-bottom: 1.8rem;
+            flex-wrap: wrap;
+        }
+
+        .doc-header h1 {
+            font-size: 1.9rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #b6d0f0;
+            text-shadow: 0 0 6px rgba(30, 100, 200, 0.2);
+        }
+
+        .doc-header .meta {
+            font-size: 0.8rem;
+            color: #7f95b0;
+            text-align: right;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        .doc-header .meta span {
+            background: #1a2a3a;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            border: 1px solid #2c4055;
+        }
+
+        .badge {
+            background: #1a2d40;
+            color: #a0c0e0;
+            font-size: 0.7rem;
+            font-weight: 500;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            border: 1px solid #2e4a66;
+            letter-spacing: 0.4px;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 2rem 0 0.8rem 0;
+            color: #b8d0ea;
+            border-left: 4px solid #2b6a9e;
+            padding-left: 1rem;
+            letter-spacing: -0.2px;
+        }
+
+        h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin: 1.6rem 0 0.6rem 0;
+            color: #b0c8e0;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            background: #0f1a26;
+            padding: 1rem 1.5rem;
+            border-radius: 14px;
+            border: 1px solid #1f3142;
+            margin: 0.5rem 0 1.2rem 0;
+        }
+
+        .grid-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .grid-item .label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #6d8aa8;
+            font-weight: 600;
+        }
+
+        .grid-item .value {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: #d6e4f0;
+            word-break: break-word;
+        }
+
+        .coord-box {
+            background: #0d1a26;
+            border-radius: 8px;
+            padding: 0.2rem 1rem;
+            font-family: 'SF Mono', 'Menlo', monospace;
+            font-size: 0.85rem;
+            border: 1px solid #29445e;
+            display: inline-block;
+            color: #b0d0f0;
+        }
+
+        .link-preview {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1.5rem;
+            background: #0d1822;
+            border-radius: 14px;
+            padding: 0.7rem 1.8rem;
+            margin: 1rem 0;
+            border: 1px solid #1f3347;
+        }
+
+        .link-preview a {
+            color: #7bb0e0;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dotted #2a4a6a;
+            font-size: 0.85rem;
+        }
+
+        .link-preview a:hover {
+            color: #9ac8f0;
+            border-bottom: 1px solid #4a8ab0;
+        }
+
+        .link-preview .preview-img {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .preview-img img {
+            max-width: 180px;
+            max-height: 70px;
+            border-radius: 6px;
+            border: 1px solid #2c4058;
+            background: #0a141f;
+            padding: 3px;
+            object-fit: contain;
+        }
+
+        .preview-img .placeholder {
+            background: #15222f;
+            padding: 0.1rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            color: #6d8aa8;
+            border: 1px solid #263b50;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            margin: 1rem 0 0.5rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #1f3142;
+        }
+
+        th {
+            background: #13212e;
+            font-weight: 600;
+            color: #b8d0ea;
+            padding: 0.6rem 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid #1f3347;
+        }
+
+        td {
+            padding: 0.5rem 0.8rem;
+            border-bottom: 1px solid #1a2a38;
+            vertical-align: top;
+            background: #0e1a24;
+            color: #d0dce8;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .code-block {
+            background: #0b141d;
+            color: #c8dde8;
+            padding: 1.2rem 1.6rem;
+            border-radius: 14px;
+            font-family: 'SF Mono', 'Fira Code', 'Menlo', monospace;
+            font-size: 0.7rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+            margin: 0.8rem 0 1.2rem 0;
+            border: 1px solid #1d3347;
+            line-height: 1.6;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.5);
+        }
+
+        .highlight-box {
+            background: #0f1a26;
+            border-radius: 16px;
+            padding: 0.2rem 1.8rem 1.2rem 1.8rem;
+            margin: 0.8rem 0 1.2rem 0;
+            border: 1px solid #1f3347;
+        }
+
+        .inline-code {
+            background: #15222f;
+            padding: 0.15rem 1rem;
+            border-radius: 40px;
+            font-family: 'SF Mono', monospace;
+            font-size: 0.8rem;
+            border: 1px solid #2a4058;
+            display: inline-block;
+            color: #b0d0ea;
+        }
+
+        .footnote {
+            margin-top: 2.2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #1e3142;
+            color: #6a8aa8;
+            font-size: 0.75rem;
+            text-align: right;
+            letter-spacing: 0.4px;
+        }
+
+        .geo-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem 2rem;
+            background: #0d1822;
+            padding: 0.6rem 1.8rem;
+            border-radius: 14px;
+            border: 1px solid #1f3347;
+            margin-top: 0.2rem;
+        }
+
+        .geo-row .label-sm {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            color: #6d8aa8;
+            letter-spacing: 0.04em;
+        }
+
+        .badge-ip {
+            background: #132433;
+            color: #8ab8e0;
+            padding: 0.1rem 1.2rem;
+            border-radius: 30px;
+            border: 1px solid #2a4a6a;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .badge-soft {
+            background: #132433;
+            color: #8ab0d0;
+            padding: 0.1rem 1rem;
+            border-radius: 30px;
+            border: 1px solid #2a4058;
+            font-size: 0.7rem;
+        }
+
+        @media (max-width: 700px) {
+            .container { padding: 1.2rem; }
+            .doc-header h1 { font-size: 1.4rem; }
+            .code-block { font-size: 0.6rem; padding: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="doc-header">
+        <h1>NFORME TÉCNICO DE ANÁLISIS FORENSE DE RED Y GEOLOCALIZACIÓN</h1>
+        <div class="meta">
+            <span>FECHA: 19/08/2026</span> &nbsp;|&nbsp; <span>VERSIÓN: 1.0</span>
+        </div>
+    </div>
+    <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+        <span class="badge">CONFIDENCIAL · PERICIAL</span>
+        <span class="badge">CASO: TELECOM +52 55 2345 6789</span>
+    </div>
+
+    <!-- ========== SECCIÓN 1 ========== -->
+    <h2>1. DATOS DE ORIGEN Y REGISTRO DE DIRECCIONAMIENTO IP</h2>
+    <div class="grid-2col">
+        <div class="grid-item"><span class="label">Identificador de Telecomunicación</span><span class="value">+52 55 2345 6789 (desechable / OTP Telegram)</span></div>
+        <div class="grid-item"><span class="label">Dirección IP Pública</span><span class="value"><span class="badge-ip">189.143.25.102</span></span></div>
+        <div class="grid-item"><span class="label">Timestamp (última sesión)</span><span class="value">19/08/2026 ·  activa</span></div>
+        <div class="grid-item"><span class="label">ASN / ISP</span><span class="value">AS8151 · Uninet / Telmex (México)</span></div>
+        <div class="grid-item"><span class="label">Titularidad del servicio</span><span class="value">Mateo Hernández Martínez</span></div>
+        <div class="grid-item"><span class="label">Tecnología de acceso</span><span class="value">Fibra Óptica (FTTH)</span></div>
+    </div>
+
+    <!-- Geolocalización -->
+    <div class="geo-row">
+        <div><span class="label-sm">Geolocalización física (triangulación)</span><br><strong style="color:#c8dce8;">Cerro Azul, Veracruz, México</strong></div>
+        <div><span class="label-sm">Coordenadas geográficas</span><br><span class="coord-box">21.193603, -97.742845</span></div>
+        <div><span class="label-sm">Referencia 3D</span><br><span style="color:#7bb0e0;">demo.f4map.com</span></div>
+    </div>
+
+    <!-- Enlaces con previsualización -->
+    <div class="link-preview">
+        <span style="font-weight:500; color:#b0c8e0;">REGISTRO EVIDENCIAL GRÁFICO:</span>
+        <div class="preview-img">
+            <a href="https://ibb.co/CsNK2Bzg" target="_blank">https://ibb.co/CsNK2Bzg</a>
+            <img src="https://i.ibb.co/CsNK2Bzg/sample-forensic-map.jpg" alt="preview gráfico" onerror="this.style.display='none'">
+            <span class="placeholder">preview</span>
+        </div>
+        <span style="font-weight:500; color:#b0c8e0; margin-left:0.2rem;">MAPEO 3D:</span>
+        <div class="preview-img">
+            <a href="https://demo.f4map.com/#lat=21.1926255&lon=-97.7435301&zoom=18" target="_blank">demo.f4map.com</a>
+            <span class="placeholder">vista 3D</span>
+        </div>
+    </div>
+
+    <!-- ========== SECCIÓN 2 ========== -->
+    <h2>2. INVENTARIO DE HARDWARE, ENLACES MÓVILES Y TOPOLOGÍA LAN</h2>
+    <div style="background:#0d1822; border-radius:14px; padding:0.6rem 1.8rem; margin-bottom:0.6rem; border:1px solid #1f3347;">
+        <div><span class="label-sm" style="font-size:0.6rem;">LÍNEA TELEFÓNICA / TERMINAL MÓVIL</span><br><strong style="color:#c8dce8;">Samsung Galaxy A25</strong> · Movistar · +52 55 2345 6789 (desechable)</div>
+        <div style="margin-top:0.3rem;"><span class="label-sm" style="font-size:0.6rem;">ENRUTADOR PRINCIPAL</span><br><strong style="color:#c8dce8;">Mercusys MR30G</strong> · 192.168.1.1</div>
+    </div>
+
+    <h3>Dispositivos conectados en la red local (LAN)</h3>
+    <table>
+        <thead><tr><th>#</th><th>Dispositivo / Identificación</th></tr></thead>
+        <tbody>
+            <tr><td>1</td><td><strong>Samsung Galaxy A25</strong> · MAC 3c:6a:9d:44:e2:1a · (asociado al usuario)</td></tr>
+            <tr><td>2</td><td><strong>Estación de trabajo "Mati"</strong> · Dell / Windows 10 · teclado ESP · adquisición México</td></tr>
+            <tr><td>3</td><td><strong>Enrutador Mercusys MR30G</strong> · 192.168.1.1</td></tr>
+        </tbody>
+    </table>
+
+    <!-- ========== SECCIÓN 3 ========== -->
+    <h2>3. AUDITORÍA DESGLOSADA DE CAPTURA DE TRÁFICO DE RED (PCAP)</h2>
+    <p style="color:#7f95b0; font-size:0.85rem; margin-top:-0.2rem;">Secuencia de comunicación dentro del segmento LAN y salida hacia WAN</p>
+    <div class="code-block">
+No.     Time            Source                Destination           Protocol Length Info
+========================================================================================================================
+  1    0.000000 Mercusys_44:e2:11 (192.168.1.1) Broadcast           ARP         42 Who has 192.168.1.105? Tell 192.168.1.1
+  2    0.001210 Samsung_44:e2:1a (192.168.1.105) Mercusys_44:e2:11 (192.168.1.1) ARP         42 192.168.1.105 is at 3c:6a:9d:44:e2:1a
+  3    0.015430 192.168.1.105           192.168.1.1           DNS         78 Standard query 0xa1b2 A 91.108.56.130.ip.telegram.org
+  4    0.024110 192.168.1.1             192.168.1.105         DNS         94 Standard query response 0xa1b2 A 91.108.56.130
+  5    0.031020 192.168.1.105           149.154.167.50        TCP         74 52410 → 443 [SYN] Seq=0 Win=65535 Len=0 MSS=1460 SACK_PERM=1 WS=128
+  6    0.045120 149.154.167.50          192.168.1.105         TCP         74 443 → 52410 [SYN, ACK] Seq=0 Ack=1 Win=29200 Len=0 MSS=1440 WS=128
+  7    0.045300 192.168.1.105           149.154.167.50        TCP         66 52410 → 443 [ACK] Seq=1 Ack=1 Win=65535 Len=0
+  8    0.048210 192.168.1.105           149.154.167.50        TLSv1.2     583 Client Hello (Telegram App Client ID: DC2)
+  9    0.062110 149.154.167.50          192.168.1.105         TLSv1.2    1480 Server Hello, Certificate, Server Key Exchange, Server Hello Done
+ 10    0.062500 192.168.1.105           149.154.167.50        TLSv1.2     182 Client Key Exchange, Change Cipher Spec, Encrypted Handshake Message
+ 11    0.078120 149.154.167.50          192.168.1.105         TLSv1.2     117 Change Cipher Spec, Encrypted Handshake Message
+ 12    0.082000 192.168.1.105           149.154.167.50        TLSv1.3    1434 Application Data [Telegram MTProto Encrypted Payload]
+ 13    0.083100 192.168.1.105           149.154.167.50        TLSv1.3    1434 Application Data [Telegram MTProto Encrypted Payload]
+ 14    0.091000 149.154.167.50          192.168.1.105         TCP         66 443 → 52410 [ACK] Seq=1532 Ack=2737 Win=31200 Len=0
+ 15    0.112400 192.168.1.105           149.154.175.100       TLSv1.3    1434 Application Data [Telegram Media Stream DC4]
+ 16    0.113100 149.154.175.100         192.168.1.105         TLSv1.3    1434 Application Data [Telegram Media Chunk 1]
+ 17    0.113200 149.154.175.100         192.168.1.105         TLSv1.3    1434 Application Data [Telegram Media Chunk 2]
+ 18    0.113300 149.154.175.100         192.168.1.105         TLSv1.3    1434 Application Data [Telegram Media Chunk 3]
+ 19    0.115000 192.168.1.105           149.154.175.100       TCP         66 52412 → 443 [ACK] Seq=512 Ack=4303 Win=131072 Len=0
+ 20    0.140200 192.168.1.105           91.108.56.130         TLSv1.3     920 Application Data [Telegram Sync DC5]
+ 21    0.151000 91.108.56.130           192.168.1.105         TLSv1.3    1434 Application Data [Telegram Updates Push]
+ 22    0.151200 91.108.56.130           192.168.1.105         TLSv1.3     512 Application Data [Telegram Updates Push Ack]
+ 23    0.210400 192.168.1.112 (Dell)    192.168.1.1           DNS         74 Standard query 0xc3d4 A www.microsoft.com
+ 24    0.218500 192.168.1.1             192.168.1.112 (Dell)  DNS        110 Standard query response 0xc3d4 A 23.221.218.150
+ 25    0.225000 192.168.1.112           23.221.218.150        TCP         74 61204 → 443 [SYN] Seq=0 Win=64240 Len=0 MSS=1460 WS=256
+ 26    0.238100 23.221.218.150          192.168.1.112         TCP         74 443 → 61204 [SYN, ACK] Seq=0 Ack=1 Win=65535 Len=0 MSS=1460 WS=256
+ 27    0.238250 192.168.1.112           23.221.218.150        TCP         54 61204 → 443 [ACK] Seq=1 Ack=1 Win=262144 Len=0
+ 28    0.245000 192.168.1.112           23.221.218.150        TLSv1.3     517 Client Hello (SNI: www.microsoft.com)
+ 29    0.261000 23.221.218.150          192.168.1.112         TLSv1.3    1434 Server Hello, Change Cipher Spec, Application Data
+ 30    0.280100 192.168.1.105           149.154.167.51        TLSv1.3    1434 Application Data [Telegram Channel Feed Sync]
+ 31    0.281000 149.154.167.51          192.168.1.105         TLSv1.3    1434 Application Data [Telegram Image Buffer]
+ 32    0.281800 149.154.167.51          192.168.1.105         TLSv1.3    1434 Application Data [Telegram Image Buffer]
+ 33    0.285000 192.168.1.105           149.154.167.51        TCP         66 52418 → 443 [ACK] Seq=1435 Ack=2869 Win=262144 Len=0
+    </div>
+
+    <!-- ========== SECCIÓN 4 ========== -->
+    <h2>4. DICTAMEN DE CORRELACIÓN DE DATOS Y HALLAZGOS ADICIONALES</h2>
+    <div class="highlight-box">
+        <p><strong style="color:#b0c8e0;">Confirmación de identidad del usuario en el dispositivo móvil</strong><br>
+        El análisis del tráfico de red evidencia que el smartphone Samsung Galaxy A25 (MAC 3c:6a:9d:44:e2:1a) mantiene conexiones activas y continuas con la infraestructura de Telegram, validando técnicamente la vinculación del dispositivo físico con el usuario investigado.</p>
+
+        <p><strong style="color:#b0c8e0;">Inspección de la estación de trabajo (Dell / Windows 10)</strong><br>
+        Aunque el registro pcap no detalla en profundidad todo el tráfico de la computadora, un análisis posterior determinó que en la estación de trabajo "Mati" se mantenía una sesión activa mediante el navegador Mozilla Firefox. Se detectó el siguiente endpoint de transmisión de video:</p>
+
+        <div style="background:#0b141d; padding:0.3rem 1.5rem; border-radius:40px; display:inline-block; border:1px solid #1f3347; margin:0.2rem 0 0.6rem 0;">
+            <span style="font-family: 'SF Mono', monospace; color:#b0d0ea;">http://187.237.116.40:82</span>
+        </div>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 0.2rem;">
+            <span class="badge-soft">ENDPOINT DE TRANSMISIÓN DE VIDEO</span>
+            <span class="badge-soft">NAVEGADOR FIREFOX</span>
+            <span class="badge-soft">INTERFAZ WEB DE CÁMARA</span>
+        </div>
+        <p style="margin-top:0.8rem; color:#9ab0c8; font-size:0.85rem;">Este hallazgo refuerza la correlación entre la actividad de red y el perfil del usuario, aportando evidencia de acceso a recursos de video en el momento del análisis.</p>
+    </div>
+
+    <!-- Análisis / explicación adicional -->
+    <div style="background:#0d1822; border-radius:14px; padding:0.8rem 1.8rem; border:1px solid #1f3347; margin-top:1.2rem;">
+        <p style="font-size:0.85rem; color:#9ab0c8;"><span style="font-weight:600; color:#b0c8e0;">Análisis técnico:</span> La captura PCAP muestra el handshake TCP/TLS hacia los datacenters de Telegram (149.154.167.50, 149.154.175.100, 91.108.56.130), con tráfico cifrado MTProto. La comunicación hacia Microsoft (23.221.218.150) desde la estación Dell confirma actividad de navegación. La IP pública 189.143.25.102 corresponde a Uninet/Telmex con titularidad registrada a nombre de Mateo Hernández Martínez, y la geolocalización por instalación FTTH apunta a Cerro Azul, Veracruz.</p>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footnote">
+        INFORME TÉCNICO FORENSE · 19/08/2026 · DATOS CORROBORADOS CON CAPTURA PCAP Y REGISTROS DE ISP
+    </div>
+    <div style="margin-top:0.6rem; font-size:0.7rem; color:#4a6a88; display:flex; gap:1.5rem; flex-wrap:wrap; border-top:1px solid #1a2a3a; padding-top:0.6rem;">
+        <span>ENLACE 3D: <a href="https://demo.f4map.com/#lat=21.1926255&lon=-97.7435301&zoom=18" target="_blank" style="color:#6d8aa8;">demo.f4map.com</a></span>
+        <span>EVIDENCIA GRÁFICA: <a href="https://ibb.co/CsNK2Bzg" target="_blank" style="color:#6d8aa8;">ibb.co/CsNK2Bzg</a></span>
+    </div>
+
+</div>
+</body>
+</html>
