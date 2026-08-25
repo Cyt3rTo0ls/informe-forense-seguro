@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>INFORME TÉCNICO DE ANÁLISIS FORENSE</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #000000;
+  font-family: 'Courier New', monospace;
+  color: #00ff00;
+  line-height: 1.8;
+  min-height: 100vh;
+}
+.wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.header {
+  border-bottom: 2px solid #00ff00;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+.header h1 {
+  color: #ff0000;
+  font-size: 1.8em;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}
+.header h2 {
+  color: #00ff00;
+  font-size: 1em;
+  letter-spacing: 2px;
+}
+.header .meta {
+  color: #ff00ff;
+  font-size: 0.8em;
+  margin-top: 10px;
+}
+nav {
+  text-align: center;
+  margin: 20px 0;
+}
+nav a {
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  padding: 8px 15px;
+  text-decoration: none;
+  font-size: 0.9em;
+  margin: 0 5px;
+  transition: all 0.3s;
+}
+nav a:hover {
+  background: #00ff00;
+  color: #000;
+}
+.section {
+  border: 1px solid #00ff00;
+  padding: 25px;
+  margin: 30px 0;
+}
+.section h3 {
+  color: #ffff00;
+  font-size: 1.3em;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #333333;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.section h4 {
+  color: #00ff00;
+  font-size: 1em;
+  margin: 15px 0 5px 0;
+}
+.section p {
+  margin: 5px 0;
+}
+.section .date {
+  color: #ff00ff;
+  font-size: 0.8em;
+}
+.section ul {
+  list-style: none;
+  padding-left: 0;
+}
+.section ul li {
+  padding: 3px 0;
+  padding-left: 20px;
+  position: relative;
+}
+.section ul li::before {
+  content: ">";
+  position: absolute;
+  left: 0;
+  color: #00ff00;
+}
+.table-container {
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.75em;
+}
+table th {
+  background: #00ff00;
+  color: #000;
+  padding: 8px 5px;
+  text-align: left;
+  font-weight: bold;
+}
+table td {
+  border: 1px solid #333333;
+  padding: 5px;
+  white-space: nowrap;
+}
+table tr:nth-child(even) td {
+  background: rgba(0,255,0,0.03);
+}
+.code-block {
+  border: 1px solid #333333;
+  background: rgba(0,255,0,0.03);
+  padding: 15px;
+  margin: 10px 0;
+  font-size: 0.85em;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.preview-box {
+  border: 1px dashed #00ffff;
+  color: #00ffff;
+  padding: 15px;
+  margin: 10px 0;
+  text-decoration: none;
+  display: block;
+  transition: all 0.3s;
+}
+.preview-box:hover {
+  box-shadow: 0 0 10px rgba(0,255,255,0.5);
+}
+.footer {
+  text-align: center;
+  margin-top: 50px;
+  padding: 20px;
+  border-top: 1px solid #333333;
+  color: #ff00ff;
+  font-size: 0.8em;
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="header">
+    <h1>DOCUMENTO CLASIFICADO</h1>
+    <h2>SISTEMA OFUSCADO v2.4.1 // INFORME TÉCNICO DE ANÁLISIS FORENSE</h2>
+    <div class="meta">ESTADO: INVESTIGACIÓN COMPLETADA // ORDEN FGR/SEIDO/1267/2026</div>
+  </div>
+
+  <nav>
+    <a href="#sec1">[ ORIGEN IP ]</a>
+    <a href="#sec2">[ GRÁFICOS ]</a>
+    <a href="#sec3">[ HARDWARE ]</a>
+    <a href="#sec4">[ PCAP ]</a>
+    <a href="#sec5">[ CORRELACIÓN ]</a>
+    <a href="#sec6">[ TELEGRAM ]</a>
+    <a href="#sec7">[ CONCLUSIONES ]</a>
+  </nav>
+
+  <div class="section" id="sec1">
+    <h3>SECCIÓN 1: DATOS DE ORIGEN Y REGISTRO DE DIRECCIONAMIENTO IP</h3>
+    <ul>
+      <li><strong>Identificador de Telecomunicación:</strong> Número telefónico desechable / virtual (<span style="color:#ffff00;">+52 55 2345 6789</span>), adjudicado mediante canales de servicios OTP en la plataforma Telegram.</li>
+      <li><strong>Trazabilidad de Registro:</strong> Tras la extracción y auditoría del registro de datos de conexión de Proton VPN, se ejecutó una búsqueda por rangos de direcciones IP vinculadas a la última sesión activa registrada.</li>
+      <li><strong>Dirección IP Pública Identificada:</strong> <span style="color:#ff0000;">189.143.25.102</span></li>
+      <li><strong>Estampa de Tiempo:</strong> <span class="date">19/08/2026</span></li>
+      <li><strong>Infraestructura de Red:</strong> Uninet / Telmex, AS8151, México</li>
+      <li><strong>Titularidad del Servicio:</strong> Mateo Hernández Martínez</li>
+      <li><strong>Geolocalización:</strong> Cerro Azul, Veracruz, México</li>
+      <li><strong>Tecnología:</strong> Fibra Óptica FTTH</li>
+      <li><strong>Coordenadas:</strong> 21.193603, -97.742845</li>
+    </ul>
+  </div>
+
+  <div class="section" id="sec2">
+    <h3>SECCIÓN 2: REGISTRO EVIDENCIAL GRÁFICO</h3>
+    <a href="https://ibb.co/CsNK2Bzg" class="preview-box" target="_blank">
+      <strong>[ PREVIEW EVIDENCIA IMAGEN ]</strong><br>
+      Host: https://ibb.co/CsNK2Bzg<br>
+      Detalle: Captura de pantalla de la interfaz móvil de la cuenta y logs recuperados.
+    </a>
+    <a href="https://demo.f4map.com/#lat=21.1926255&lon=-97.7435301&zoom=18" class="preview-box" target="_blank">
+      <strong>[ PREVIEW GEOLOCALIZACIÓN 3D ]</strong><br>
+      Host: f4map Demo 3D<br>
+      Ubicación: Cerro Azul, Veracruz (lat=21.1926255, lon=-97.7435301)
+    </a>
+  </div>
+
+  <div class="section" id="sec3">
+    <h3>SECCIÓN 3: INVENTARIO DE HARDWARE</h3>
+    <ul>
+      <li><strong>Número desechable:</strong> +52 55 2345 6789</li>
+      <li><strong>Dispositivo móvil:</strong> Samsung Galaxy A25</li>
+      <li><strong>Operador:</strong> Movistar</li>
+      <li><strong>Router:</strong> Mercusys MR30G (IP local de gestión: 192.168.1.1)</li>
+      <li><strong>Dispositivo secundario:</strong> Dell Windows 10, identificado en red local como "Mati", teclado distribución ESP.</li>
+    </ul>
+  </div>
+
+  <div class="section" id="sec4">
+    <h3>SECCIÓN 4: AUDITORÍA PCAP</h3>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Time</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Protocol</th>
+            <th>Length</th>
+            <th>Info</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>0.000000</td><td>Mercusys_44:e2:11 (192.168.1.1)</td><td>Broadcast</td><td>ARP</td><td>42</td><td>Who has 192.168.1.105? Tell 192.168.1.1</td></tr>
+          <tr><td>2</td><td>0.001210</td><td>Samsung_44:e2:1a (192.168.1.105)</td><td>Mercusys_44:e2:11 (192.168.1.1)</td><td>ARP</td><td>42</td><td>192.168.1.105 is at 3c:6a:9d:44:e2:1a</td></tr>
+          <tr><td>3</td><td>0.015430</td><td>192.168.1.105</td><td>192.168.1.1</td><td>DNS</td><td>78</td><td>Standard query 0xa1b2 A 91.108.56.130.ip.telegram.org</td></tr>
+          <tr><td>4</td><td>0.024110</td><td>192.168.1.1</td><td>192.168.1.105</td><td>DNS</td><td>94</td><td>Standard query response 0xa1b2 A 91.108.56.130</td></tr>
+          <tr><td>5</td><td>0.031020</td><td>192.168.1.105</td><td>149.154.167.50</td><td>TCP</td><td>74</td><td>52410 → 443 [SYN]</td></tr>
+          <tr><td>6</td><td>0.045120</td><td>149.154.167.50</td><td>192.168.1.105</td><td>TCP</td><td>74</td><td>443 → 52410 [SYN, ACK]</td></tr>
+          <tr><td>7</td><td>0.045300</td><td>192.168.1.105</td><td>149.154.167.50</td><td>TCP</td><td>66</td><td>52410 → 443 [ACK]</td></tr>
+          <tr><td>8</td><td>0.048210</td><td>192.168.1.105</td><td>149.154.167.50</td><td>TLSv1.2</td><td>583</td><td>Client Hello (Telegram App Client ID: DC2)</td></tr>
+          <tr><td>9</td><td>0.062110</td><td>149.154.167.50</td><td>192.168.1.105</td><td>TLSv1.2</td><td>1480</td><td>Server Hello</td></tr>
+          <tr><td>10</td><td>0.062500</td><td>192.168.1.105</td><td>149.154.167.50</td><td>TLSv1.2</td><td>182</td><td>Client Key Exchange</td></tr>
+          <tr><td>11</td><td>0.078120</td><td>149.154.167.50</td><td>192.168.1.105</td><td>TLSv1.2</td><td>117</td><td>Change Cipher Spec</td></tr>
+          <tr><td>12</td><td>0.082000</td><td>192.168.1.105</td><td>149.154.167.50</td><td>TLSv1.3</td><td>1434</td><td>Application Data [Telegram MTProto]</td></tr>
+          <tr><td>13</td><td>0.083100</td><td>192.168.1.105</td><td>149.154.167.50</td><td>TLSv1.3</td><td>1434</td><td>Application Data [Telegram MTProto]</td></tr>
+          <tr><td>14</td><td>0.091000</td><td>149.154.167.50</td><td>192.168.1.105</td><td>TCP</td><td>66</td><td>443 → 52410 [ACK]</td></tr>
+          <tr><td>15</td><td>0.112400</td><td>192.168.1.105</td><td>149.154.175.100</td><td>TLSv1.3</td><td>1434</td><td>Application Data [Telegram Media Stream DC4]</td></tr>
+          <tr><td>16</td><td>0.113100</td><td>149.154.175.100</td><td>192.168.1.105</td><td>TLSv1.3</td><td>1434</td><td>Application Data [Telegram Media Chunk 1]</td></tr>
+          <tr><td>17</td><td>0.113200</td><td>149.154.175.100</td><td>192.168.1.105</td><td>TLSv1.3</td><td>1434</td><td>Application Data [Telegram Media Chunk 2]</td></tr>
+          <tr><td>18</td><td>0.113300</td><td>149.154.175.100</td><td>192.168.1.105</td><td>TLSv1.3</td><td>1434</td><td>Application Data [Telegram Media Chunk 3]</td></tr>
+          <tr><td>19</td><td>0.115000</td><td>192.168.1.105</td><td>149.154.175.100</td><td>TCP</td><td>66</td><td>52412 → 443 [ACK]</td></tr>
+          <tr><td>20</td><td>0.140200</td><td>192.168.1.105</td><td>91.108.56.130</td><td>TLSv1.3</td><td>920</td><td>Application Data [Telegram Sync DC5]</td></tr>
+          <tr><td>21</td><td>0.151000</td><td>91.108.56.130</td><td>192.168.1.105</td><td>TLSv1.3</td><td>1434</td><td>Application Data [Telegram Updates Push]</td></tr>
+          <tr><td>22</td><td>0.151200</td><td>91.108.56.130</td><td>192.168.1.105</td><td>TLSv1.3</td><td>512</td><td>Application Data [Telegram Updates Push Ack]</td></tr>
+          <tr><td>23</td><td>0.210400</td><td>192.168.1.112 (Dell)</td><td>192.168.1.1</td><td>DNS</td><td>74</td><td>Standard query 0xc3d4 A www.microsoft.com</td></tr>
+          <tr><td>24</td><td>0.218500</td><td>192.168.1.1</td><td>192.168.1.112 (Dell)</td><td>DNS</td><td>110</td><td>Standard query response</td></tr>
+          <tr><td>25</td><td>0.225000</td><td>192.168.1.112</td><td>23.221.218.150</td><td>TCP</td><td>74</td><td>61204 → 443 [SYN]</td></tr>
+          <tr><td>26</td><td>0.238100</td><td>23.221.218.150</td><td>192.168.1.112</td><td>TCP</td><td>74</td><td>443 → 61204 [SYN, ACK]</td></tr>
+          <tr><td>27</td><td>0.238250</td><td>192.168.1.112</td><td>23.221.218.150</td><td>TCP</td><td>54</td><td>61204 → 443 [ACK]</td></tr>
+          <tr><td>28</td><td>0.245000</td><td>192.168.1.112</td><td>23.221.218.150</td><td>TLSv1.3</td><td>517</td><td>Client Hello</td></tr>
+          <tr><td>29</td><td>0.261000</td><td>23.221.218.150</td><td>192.168.1.112</td><td>TLSv1.3</td><td>1434</td><td>Server Hello</td></tr>
+          <tr><td>30</td><td>0.280100</td><td>192.168.1.105</td><td>149.154.167.51</td><td>TLSv1.3</td><td>1434</td><td>Application Data [Telegram Channel Feed Sync]</td></tr>
+          <tr><td>31</td><td>0.281000</td><td>149.154.167.51</td><td>192.168.1.105</td><td>TLSv1.3</td><td>1434</td><td>Application Data [Telegram Image Buffer]</td></tr>
+          <tr><td>32</td><td>0.281800</td><td>149.154.167.51</td><td>192.168.1.105</td><td>TLSv1.3</td><td>1434</td><td>Application Data [Telegram Image Buffer]</td></tr>
+          <tr><td>33</td><td>0.285000</td><td>192.168.1.105</td><td>149.154.167.51</td><td>TCP</td><td>66</td><td>52418 → 443 [ACK]</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section" id="sec5">
+    <h3>SECCIÓN 5: DICTAMEN DE CORRELACIÓN</h3>
+    <ul>
+      <li><strong>Samsung Galaxy A25:</strong> Confirmación de identidad de dispositivo activo y correlacionado en el plano físico e inalámbrico.</li>
+      <li><strong>Navegador Activo:</strong> Sesión activa en Mozilla Firefox operando en Dell Windows 10 ("Mati").</li>
+      <li><strong>Endpoint de Cámara:</strong></li>
+    </ul>
+    <a href="http://187.237.116.40:82" class="preview-box" target="_blank">
+      <strong>[ PREVIEW ENDPOINT CÁMARA DE SEGURIDAD ]</strong><br>
+      URL: http://187.237.116.40:82<br>
+      Estado: Activo. Transmisión local identificada.
+    </a>
+  </div>
+
+  <div class="section" id="sec6">
+    <h3>SECCIÓN 6: SOLICITUD A TELEGRAM Y RESPUESTA COMPLETA</h3>
+    <h4>SOLICITUD FORMAL DE INFORMACIÓN</h4>
+    <div class="code-block">ASUNTO: Solicitud formal de información de usuario bajo orden judicial FGR/SEIDO/1267/2026.
+DESTINATARIO: Telegram Messenger Inc. Legal Compliance Department.
+
+Por medio de la presente, y en ejercicio de las facultades conferidas por las leyes vigentes del Estado Mexicano, se solicita la información de registro, conexión e identificación asociada al identificador telefónico +52 55 2345 6789.</div>
+
+    <h4>RESPUESTA OFICIAL DE TELEGRAM MESSENGER INC.</h4>
+    <div class="code-block">TELEGRAM COMPLIANCE REPORT // CONFIDENTIAL
+-----------------------------------------
+[+] User Details:
+    - Username: @Hi12345432
+    - User ID: 1744258573
+    - Registered Phone: +52 55 2345 6789
+    - Current Linked IP: 185.159.158.121
+    - ISP: Proton VPN AG
+    - Country: Mexico (MX)
+    - Creation Date: 03/02/2025
+    - Active Devices: Android (Samsung Galaxy A25), Unknown Device (Web / Desktop Session)
+
+[+] Connection Logs (Last 30 Days):
+    - 19/08/2026 - 23:14:42 UTC | IP: 185.159.158.121 (Proton VPN, Switzerland/MX Endpoint)
+    - 18/08/2026 - 11:22:05 UTC | IP: 185.159.158.121 (Proton VPN)
+    - 15/08/2026 - 04:12:11 UTC | IP: 189.143.25.102 (Uninet / Telmex, Mexico)
+
+[+] Data Limits & Scope:
+    - End-to-end encrypted chats (Secret Chats) contents are not stored on Telegram servers and cannot be retrieved.
+    - Cloud-based chats are stored encrypted. IP logs are preserved for 30 days as per security policy.</div>
+  </div>
+
+  <div class="section" id="sec7">
+    <h3>SECCIÓN 7: CONCLUSIONES FINALES</h3>
+    <ul>
+      <li><strong>Cadena de evidencia completa:</strong> Correlación unívoca establecida entre el identificador telefónico, la cuenta de Telegram, los registros PCAP de la red local (Mercusys MR30G), la dirección IP pública de Telmex y la ubicación física en Cerro Azul, Veracruz.</li>
+      <li><strong>Estado:</strong> <span style="color:#ffff00; font-weight:bold;">INVESTIGACIÓN COMPLETADA</span></li>
+      <li><strong>Cierre de Actuación:</strong> Oficio FGR/SEIDO/1267/2026 emitido para el archivo forense digital.</li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    SISTEMA OFUSCADO v2.4.1 // DOCUMENTO CLASIFICADO // FGR / SEIDO / 2026
+  </div>
+</div>
+</body>
+</html>
+
+
+
