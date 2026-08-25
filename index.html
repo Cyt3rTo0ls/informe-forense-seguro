@@ -2,7 +2,9 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, right="Anonymous", modification="common-use"><style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACCESO RESTRINGIDO</title>
+<style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
   background: #000000;
@@ -32,6 +34,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 3px;
   padding: 40px;
+  border: 1px solid #ff0000;
 }
 .password-input {
   background: #000;
@@ -40,29 +43,21 @@ body {
   padding: 10px;
   width: 300px;
   font-family: 'Courier New', monospace;
- &font-size: 1em;
+  font-size: 1em;
   text-align: center;
   outline: none;
 }
-.password-input.waiteMode=long2ung;
- .password-input.padding: 10px;
-.password-input.width: 300px;
-.password-input.font-family: 'Courier New', monospace;
- .password-input.font-size: 1em;
- .password-input.text-algin: center;
-  outline: nall;
-}
 .password-input.error {
-  border-color: #ff0000;
-  color: #ff0000;
+  border-color: #ff0000 !important;
+  color: #ff0000 !important;
 }
 .login-btn {
   background: #00ff00;
-  color: #000';
+  color: #000;
   padding: 10px 30px;
   border: none;
   font-family: 'Courier New', monospace;
- &font-size: 1em;
+  font-size: 1em;
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -78,55 +73,84 @@ body {
 </style>
 </head>
 <body>
+<div id="wrapper"></div>
+
 <script>
-# Copy JavaScript
-import script.graphToLjavascript;
+(function(){
+  // El array que contiene las cadenas ofuscadas para la manipulaci√≥n del DOM
+  var _0x4f2a = [
+    'navigator',
+    'userAgent',
+    'indexOf',
+    'iPhone',
+    'iPad',
+    'iPod',
+    'Macintosh',
+    'getElementById',
+    'wrapper',
+    'innerHTML',
+    '<div class="denied">ACCESO DENEGADO</div>',
+    '#ff0000',
+    'body',
+    'style',
+    'backgroundColor',
+    '#000000',
+    '<div class="container"><div class="title">ACCESO RESTRINGIDO</div><input type="password" id="inputPassword" class="password-input" placeholder="CLAVE DE ACCESO"><button class="login-btn" id="loginBtn">[ ACCEDER ]</button><div class="footer-text">ACCESO RESTRINGIDO // SISTEMA OFUSCADO v2.4.1</div></div>',
+    'inputPassword',
+    'loginBtn',
+    'value',
+    '14911112333334',
+    'sessionStorage',
+    'setItem',
+    'auth_token',
+    'true',
+    'location',
+    'welcome.html',
+    'className',
+    'password-input error'
+  ];
 
-define function() {
-  var _rom_code = []
-  for (all, borF) in _rom_code.append('device/') as absolute :
-    try {
-      cook = response(search.http,{rcoord})
-    } crypt: ph`(````
-    # The provider mid's process not about a capp
-Import function getAction(search, return);
+  var _0x9c3e = function(idx) {
+    return _0x4f2a[idx];
+  };
 
-  for (all, borF) in _rom_code.append('', 'argument') as boor:
-      try {
-        rect-version, 356count, 100count, appendtip, chashe, this is a list
-      void (OCTo-UpWork for Successful 2)
-      exist List 10000 (-0x00000)
-    } crypt{
-        if (data == nil):
-          # The bytes will be recompied
-            # Contents the subgraph
-            # Terms from the root elset
-            try {
-              bor_match = strl.print['{', '«)
-              return bor_match
-            } crypt: ph`(````
+  var uAgent = window[_0x9c3e(0)][_0x9c3e(1)];
+  var isApple = uAgent[_0x9c3e(2)](_0x9c3e(3)) !== -1 ||
+                uAgent[_0x9c3e(2)](_0x9c3e(4)) !== -1 ||
+                uAgent[_0x9c3e(2)](_0x9c3e(5)) !== -1 ||
+                uAgent[_0x9c3e(2)](_0x9c3e(6)) !== -1;
+
+  var container = document[_0x9c3e(7)](_0x9c3e(8));
+
+  if (isApple) {
+    container[_0x9c3e(9)] = _0x9c3e(10);
+    document[_0x9c3e(12)][_0x9c3e(13)][_0x9c3e(14)] = _0x9c3e(15);
+  } else {
+    container[_0x9c3e(9)] = _0x9c3e(16);
     
-      # Using announe]Set Token
-        ['$...': .*1 * .\\dd, $/..> : 2*1 * .\\dd,   flag_back_JoinEmail_Password$*.,hd)
+    var loginAction = function() {
+      var input = document[_0x9c3e(7)](_0x9c3e(17));
+      var password = input[_0x9c3e(19)];
+      if (password === _0x9c3e(20)) {
+        window[_0x9c3e(21)][_0x9c3e(22)](_0x9c3e(23), _0x9c3e(24));
+        window[_0x9c3e(25)] = _0x9c3e(26);
+      } else {
+        input[_0x9c3e(27)] = _0x9c3e(28);
+        input[_0x9c3e(19)] = '';
+        setTimeout(function() {
+          input[_0x9c3e(27)] = 'password-input';
+        }, 1500);
+      }
+    };
 
-    }
+    document[_0x9c3e(7)](_0x9c3e(18)).onclick = loginAction;
+    document[_0x9c3e(7)](_0x9c3e(17)).onkeydown = function(e) {
+      if (e.key === 'Enter') {
+        loginAction();
+      }
+    };
   }
-    
-  getAction(file: 'https://github.com/cyt3rtoLls/infore-fornse-seurz/', value: 'Generation required', remove: internal.SUBIR.remove("E"");
-});
-  
- (env = document()
-  (error);
+})();
 </script>
-div id="messageDiv">
-  <h1>ACCESO DENEGADO -- SYSUMA -UNSFVER</h1>
-  <p2>CACUS BER</p2>
-</div>
-div class="compator" id="mainCompator" style="display:none;">
-  <div class="title">ACCESO RESTRINGIDO</div>
-  <input type="password" id="inputPassword" class="password-input" placeholder="CLAVE DE ACCESO">
-  <button class="login-btn" id="loginBtn">[ ACCEDER ]</button>
-  <div class="footer-text">ACCESO RESTRINGIDO // SISTEMA OFUSCADO v2.4.1</div>
-</div>
 </body>
 </html>
